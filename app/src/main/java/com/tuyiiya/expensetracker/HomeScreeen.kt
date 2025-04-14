@@ -29,6 +29,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.tuyiiya.expensetracker.ui.theme.ExpenseTrackerTheme
 import com.tuyiiya.expensetracker.ui.theme.Zinc
+import com.tuyiiya.expensetracker.widget.ExpenseTextView
 
 @Composable
 fun HomeScreen() {
@@ -66,13 +67,13 @@ fun HomeScreen() {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Column {
-                    Text(
+                    ExpenseTextView(
                         text = "Good Afternoon",
                         fontSize = 16.sp,
                         color = Color.White
                     )
 
-                    Text(
+                    ExpenseTextView(
                         text = "Tuyiiya",
                         fontSize = 20.sp,
                         color = Color.White,
@@ -95,13 +96,16 @@ fun HomeScreen() {
                 }
             )
 
-            TransactionList(modifier = Modifier.fillMaxWidth().constrainAs(list) {
-                top.linkTo(card.bottom)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                bottom.linkTo(parent.bottom)
-                height = Dimension.fillToConstraints
-            })
+            TransactionList(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .constrainAs(list) {
+                        top.linkTo(card.bottom)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        bottom.linkTo(parent.bottom)
+                        height = Dimension.fillToConstraints
+                    })
         }
     }
 }
@@ -134,8 +138,12 @@ fun CardItem(modifier: Modifier) {
                         .weight(1f)
                 ) {
                     Column {
-                        Text(text = "Total Balance", fontSize = 16.sp, color = Color.White)
-                        Text(
+                        ExpenseTextView(
+                            text = "Total Balance",
+                            fontSize = 16.sp,
+                            color = Color.White
+                        )
+                        ExpenseTextView(
                             text = "UGX 1,000,000",
                             fontSize = 20.sp,
                             color = Color.White,
@@ -186,11 +194,11 @@ fun TransactionList(modifier: Modifier) {
         Box(
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "Recent Transactions", fontSize = 20.sp)
-            Text(
+            ExpenseTextView(text = "Recent Transactions", fontSize = 20.sp)
+            ExpenseTextView(
                 text = "See All",
                 fontSize = 16.sp,
-                color = Color.White,
+                color = Color.Gray,
                 modifier = Modifier.align(Alignment.CenterEnd)
             )
         }
@@ -235,7 +243,11 @@ fun TransactionItem(
     date: String,
     color: Color
 ) {
-    Box(modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp)) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 16.dp)
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -246,15 +258,20 @@ fun TransactionItem(
             )
             Spacer(modifier = Modifier.size(16.dp))
             Column {
-                Text(text = title, fontSize = 16.sp)
-                Text(text = date, fontSize = 17.sp, color = Color.Gray)
+                ExpenseTextView(text = title, fontSize = 16.sp, fontWeight = FontWeight.Medium)
+                ExpenseTextView(
+                    text = date,
+                    fontSize = 17.sp,
+                    color = Color.Gray,
+                )
             }
         }
-        Text(
+        ExpenseTextView(
             text = "UGX $amount",
             fontSize = 20.sp,
             modifier = Modifier.align(Alignment.CenterEnd),
-            color = color
+            color = color,
+            fontWeight = FontWeight.Bold
         )
     }
 }
@@ -275,9 +292,19 @@ fun CardRowItem(
                 contentDescription = null,
             )
             Spacer(modifier = Modifier.size(8.dp))
-            Text(text = title, fontSize = 16.sp, color = Color.White)
+            ExpenseTextView(
+                text = title,
+                fontSize = 16.sp,
+                color = Color.White,
+                fontWeight = FontWeight.Medium
+            )
         }
-        Text(text = "UGX $amount", fontSize = 20.sp, color = Color.White)
+        ExpenseTextView(
+            text = "UGX $amount",
+            fontSize = 20.sp,
+            color = Color.White,
+            fontWeight = FontWeight.Bold
+        )
     }
 }
 
