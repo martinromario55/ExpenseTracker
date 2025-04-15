@@ -16,10 +16,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,10 +31,14 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.tuyiiya.expensetracker.ui.theme.ExpenseTrackerTheme
 import com.tuyiiya.expensetracker.ui.theme.Zinc
+import com.tuyiiya.expensetracker.viewmodel.HomeViewModel
+import com.tuyiiya.expensetracker.viewmodel.HomeViewModelFactory
 import com.tuyiiya.expensetracker.widget.ExpenseTextView
 
 @Composable
 fun HomeScreen() {
+    val viewModel: HomeViewModel =
+        HomeViewModelFactory(LocalContext.current).create(HomeViewModel::class.java)
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -87,6 +93,11 @@ fun HomeScreen() {
                     modifier = Modifier.align(Alignment.CenterVertically)
                 )
             }
+
+            val state = viewModel.expenses.collectAsState(emptyList())
+            val expenses = viewModel.getTotalExpense(state.value)
+            val income = viewModel.getTotalIncome(state.value)
+            val balance = viewModel.getBalance(state.value)
 
             CardItem(
                 modifier = Modifier.constrainAs(card) {
