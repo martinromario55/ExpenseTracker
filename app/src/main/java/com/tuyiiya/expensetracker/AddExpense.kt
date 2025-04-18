@@ -152,7 +152,7 @@ fun DataForm(modifier: Modifier) {
         ExpenseTextView(text = "Date", fontSize = 14.sp)
         Spacer(modifier = Modifier.size(8.dp))
         OutlinedTextField(
-            value = date.longValue.toString(),
+            value = if (date.longValue == 0L) "" else Utils.formatDateToString(date.longValue),
             onValueChange = { },
             modifier = Modifier
                 .fillMaxWidth()
