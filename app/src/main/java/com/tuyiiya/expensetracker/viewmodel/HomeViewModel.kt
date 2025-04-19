@@ -7,6 +7,7 @@ import com.tuyiiya.expensetracker.data.ExpenseDatabase
 import com.tuyiiya.expensetracker.data.dao.ExpenseDao
 import com.tuyiiya.expensetracker.data.model.ExpenseEntity
 import com.tuyiiya.expensetracker.R
+import com.tuyiiya.expensetracker.Utils
 
 class HomeViewModel(dao: ExpenseDao): ViewModel() {
     val expenses = dao.getAllExpenses()
@@ -20,7 +21,7 @@ class HomeViewModel(dao: ExpenseDao): ViewModel() {
                 total -= it.amount
             }
         }
-        return "UGX $total"
+        return "UGX ${Utils.formatToDecimalValue(total)}"
     }
 
     fun getTotalExpense(list: List<ExpenseEntity>): String {
@@ -30,7 +31,7 @@ class HomeViewModel(dao: ExpenseDao): ViewModel() {
                 total += it.amount
             }
         }
-        return "UGX $total"
+        return "UGX ${Utils.formatToDecimalValue(total)}"
     }
 
     fun getTotalIncome(list: List<ExpenseEntity>): String {
@@ -40,7 +41,8 @@ class HomeViewModel(dao: ExpenseDao): ViewModel() {
                 total += it.amount
             }
         }
-        return "UGX $total"
+        //return "UGX $total"
+        return "UGX ${Utils.formatToDecimalValue(total)}"
     }
 
     fun getItemIcon(item: ExpenseEntity): Int {

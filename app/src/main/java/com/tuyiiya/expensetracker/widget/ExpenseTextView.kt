@@ -20,7 +20,7 @@ import com.tuyiiya.expensetracker.ui.theme.InterFontFamily
 fun ExpenseTextView(
     text: String,
     modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
+    color: Color = Color.Black,
     fontSize: TextUnit = TextUnit.Unspecified,
     fontStyle: FontStyle? = null,
     fontWeight: FontWeight? = null,

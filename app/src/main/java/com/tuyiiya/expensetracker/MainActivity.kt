@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ExpenseTrackerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) {
-                    HomeScreen()
+                    NavHostScreen()
                 }
             }
         }
