@@ -1,4 +1,4 @@
-package com.tuyiiya.expensetracker
+package com.tuyiiya.expensetracker.feature.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -36,6 +36,8 @@ import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.tuyiiya.expensetracker.R
+import com.tuyiiya.expensetracker.utils.Utils
 import com.tuyiiya.expensetracker.data.model.ExpenseEntity
 import com.tuyiiya.expensetracker.ui.theme.Zinc
 import com.tuyiiya.expensetracker.viewmodel.HomeViewModel
@@ -125,7 +127,7 @@ fun HomeScreen(navController: NavController) {
                         end.linkTo(parent.end)
                         bottom.linkTo(parent.bottom)
                         height = Dimension.fillToConstraints
-                    }, list = state.value, viewModel
+                    }, list = state.value
             )
 
             Image(
@@ -139,6 +141,7 @@ fun HomeScreen(navController: NavController) {
                     }
                     .size(46.dp)
                     .clip(CircleShape)
+                    .background(Zinc.copy(.5f))
                     .clickable {
                         navController.navigate("add")
                     }
@@ -226,19 +229,25 @@ fun CardItem(modifier: Modifier, balance: String, income: String, expenses: Stri
 
 
 @Composable
-fun TransactionList(modifier: Modifier, list: List<ExpenseEntity>, viewModel: HomeViewModel) {
+fun TransactionList(
+    modifier: Modifier,
+    list: List<ExpenseEntity>,
+    title: String = "Recent Transactions"
+) {
     LazyColumn(modifier = modifier.padding(horizontal = 16.dp)) {
         item {
             Box(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                ExpenseTextView(text = "Recent Transactions", fontSize = 20.sp)
-                ExpenseTextView(
-                    text = "See All",
-                    fontSize = 16.sp,
-                    color = Color.Gray,
-                    modifier = Modifier.align(Alignment.CenterEnd)
-                )
+                ExpenseTextView(text = title, fontSize = 20.sp)
+                if (title == "Recent Transactions") {
+                    ExpenseTextView(
+                        text = "See All",
+                        fontSize = 16.sp,
+                        color = Color.Gray,
+                        modifier = Modifier.align(Alignment.CenterEnd)
+                    )
+                }
             }
         }
 
@@ -246,8 +255,8 @@ fun TransactionList(modifier: Modifier, list: List<ExpenseEntity>, viewModel: Ho
             TransactionItem(
                 title = item.title,
                 amount = item.amount.toString(),
-                icon = viewModel.getItemIcon(item),
-                date = Utils.formatDateToString(item.date),
+                icon = Utils.getItemIcon(item),
+                date = Utils.formatDateToHumanReadableForm(item.date),
                 color = if (item.type == "Income") Color.Green else Color.Red
             )
         }

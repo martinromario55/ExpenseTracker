@@ -66,4 +66,10 @@ dependencies {
 
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
+
+    // Chart
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+    // ConstraintLayout
+    implementation("androidx.constraintlayout:constraintlayout:2.2.1")
 }

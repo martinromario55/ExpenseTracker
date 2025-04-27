@@ -1,4 +1,4 @@
-package com.tuyiiya.expensetracker
+package com.tuyiiya.expensetracker.feature.add_expense
 
 import androidx.compose.ui.window.Dialog
 import androidx.compose.foundation.Image
@@ -50,11 +50,11 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.tuyiiya.expensetracker.R
+import com.tuyiiya.expensetracker.utils.Utils
 import com.tuyiiya.expensetracker.data.model.ExpenseEntity
 import com.tuyiiya.expensetracker.viewmodel.AddExpenseViewModel
 import com.tuyiiya.expensetracker.viewmodel.AddExpenseViewModelFactory
-import com.tuyiiya.expensetracker.viewmodel.HomeViewModel
-import com.tuyiiya.expensetracker.viewmodel.HomeViewModelFactory
 import com.tuyiiya.expensetracker.widget.ExpenseTextView
 import kotlinx.coroutines.launch
 
@@ -188,7 +188,7 @@ fun DataForm(modifier: Modifier, onAddExpenseClick: (model: ExpenseEntity) -> Un
         ExpenseTextView(text = "Date", fontSize = 14.sp)
         Spacer(modifier = Modifier.size(8.dp))
         OutlinedTextField(
-            value = if (date.longValue == 0L) "" else Utils.formatDateToString(date.longValue),
+            value = if (date.longValue == 0L) "" else Utils.formatDateToHumanReadableForm(date.longValue),
             onValueChange = {},
             modifier = Modifier
                 .fillMaxWidth()
@@ -228,6 +228,7 @@ fun DataForm(modifier: Modifier, onAddExpenseClick: (model: ExpenseEntity) -> Un
                     id = null,
                     title = name.value,
                     amount = amount.value.toDoubleOrNull() ?: 0.0,
+                    //date = Utils.formatDateToHumanReadableForm(date.longValue),
                     date = date.longValue,
                     category = category.value,
                     type = type.value

@@ -7,7 +7,7 @@ import com.tuyiiya.expensetracker.data.ExpenseDatabase
 import com.tuyiiya.expensetracker.data.dao.ExpenseDao
 import com.tuyiiya.expensetracker.data.model.ExpenseEntity
 import com.tuyiiya.expensetracker.R
-import com.tuyiiya.expensetracker.Utils
+import com.tuyiiya.expensetracker.utils.Utils
 
 class HomeViewModel(dao: ExpenseDao): ViewModel() {
     val expenses = dao.getAllExpenses()
@@ -43,20 +43,6 @@ class HomeViewModel(dao: ExpenseDao): ViewModel() {
         }
         //return "UGX $total"
         return "UGX ${Utils.formatToDecimalValue(total)}"
-    }
-
-    fun getItemIcon(item: ExpenseEntity): Int {
-        if (item.category == "Salary") {
-            return R.drawable.ic_upwork
-        } else if (item.category == "PayPal") {
-            return R.drawable.ic_paypal
-        } else if (item.category == "Netflix") {
-            return R.drawable.ic_netflix
-        } else if (item.category == "Starbucks") {
-            return R.drawable.ic_starbucks
-        } else {
-            return R.drawable.ic_upwork
-        }
     }
 }
 
